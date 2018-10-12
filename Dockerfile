@@ -60,7 +60,7 @@ RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer
     && cmake -DMONERO_DIR=/data/monero .. \
     && make \
     && mv /data/onion-monero-blockchain-explorer/build/xmrblocks /data/
-RUN mv /data/onion-monero-blockchain-explorer/src/templates /data/
+# RUN mv /data/onion-monero-blockchain-explorer/src/templates /data/
 
 RUN apt-get purge -y \
         build-essential \
@@ -91,7 +91,8 @@ RUN apt-get purge -y \
 FROM debian:stable-slim
 WORKDIR /data
 COPY --from=builder /data/xmrblocks /usr/local/bin
-COPY --from=builder /data/templates /data/templates
+# COPY --from=builder /data/templates /data/templates
+COPY onion-monero-blockchain-explorer/src/templates /data/templates
 COPY --from=builder /data/su-exec /usr/local/bin/
 
 RUN apt-get update -qq && apt-get install -y \
