@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  monero-explorer:
+    build: .
+    command: --stagenet
+    volumes:
+      # /monero in container should eventually contain the contents of the folder .bitmonero/lmdb
+      - /mnt/bck/development/Monero/stagenet/lmdb:/monero
+    ports:
+      - "8081:8081"
+    environment:
+      - USER_ID=1000
+      - PORT=8081
+      - LMDB_PATH=/monero
+      - ENABLE_AUTOREFRESH=1
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
