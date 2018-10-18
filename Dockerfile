@@ -103,7 +103,7 @@ RUN apt-get update -qq && apt-get install -y \
    && apt-get autoremove --purge -y \
    && rm -rf /var/tmp/* /tmp/* /var/lib/apt/lists/*
 
-COPY onion-monero-blockchain-explorer/src/templates /data/templates_template
+COPY templates /data/templates_template
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

@@ -1,0 +1,42 @@
+<h2 class="title">
+ Transaction pool
+</h2>
+<div class="small">
+  (no of txs: {{mempool_size}},
+  size: {{mempool_size_kB}} kB, updated every {{ mempool_refresh_time }}
+  seconds)
+</div>
+<div>
+  <div class="segment">
+    <table class="table">
+      <tr>
+        <th>age [h:m:s]</th>
+        <th>transaction hash</th>
+        <th>fee/per_kB</th>
+        <!--<th>outputs</th>-->
+        <th>in/out/pID</th>
+        <th>ring size</th>
+        <th>tx size [kB]</th>
+      </tr>
+      {{#mempooltxs}}
+      <tr>
+        <td>{{age}}</td>
+        <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
+        <td>{{fee}}/{{payed_for_kB}}</td>
+        <!--<td>{{xmr_outputs}}</td>-->
+        <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
+        <td>{{mixin}}</td>
+        <td>{{txsize}}</td>
+      </tr>
+      {{/mempooltxs}}
+    </table>
+  </div>
+
+  {{^mempool_fits_on_front_page}}
+    {{#partial_mempool_shown}}
+    <div class="center" style="text-align: center; margin-bottom: 10px">
+      <a href="__prefix__/txpool">Only {{no_of_mempool_tx_of_frontpage}} txs shown. Click here to see all of them</a>
+    </div>
+    {{/partial_mempool_shown}}
+  {{/mempool_fits_on_front_page}}
+</div>
