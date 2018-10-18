@@ -4,7 +4,7 @@
     {{#has_error}}
         <h4 style="color:red">Attempt failed</h4>
         {{#error_tx_not_found}}
-            <h4>Tx {{tx_hash}} not found. </h4>
+            <h4>Tx <span class="inline-code">{{tx_hash}}</span> not found. </h4>
             <div class="center" style="text-align: center;width:80%">
                 <p> If this is newly made tx, it can take some time (up to minute)
                     for it to get propagated to all nodes' txpools.
