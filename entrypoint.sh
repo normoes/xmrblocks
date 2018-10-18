@@ -13,6 +13,7 @@ if [ "$(id -u)" = 0 ]; then
   # USER_ID defaults to 1000 (Dockerfile)
   adduser --system --group --uid "$USER_ID" --shell /bin/false xmrblocks &> /dev/null
   # in order not to replace within the original files (mounted volume)
+  test -e /data/templates && rm -rf /data/templates
   cp -R /data/templates_template/. /data/templates/
   for i in /data/templates/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
   for i in /data/templates/partials/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
