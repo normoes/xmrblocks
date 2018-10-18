@@ -5,10 +5,10 @@
         Server time: {{server_timestamp}} |
 
         {{#refresh}}
-            <a href="./">Autorefresh is ON (10 s)</a>
+            <a href="__prefix__/">Autorefresh is ON (10 s)</a>
         {{/refresh}}
         {{^refresh}}
-            <a href="./autorefresh">Autorefresh is OFF</a>
+            <a href="__prefix__/autorefresh">Autorefresh is OFF</a>
         {{/refresh}}
         </h3>
 </div>
@@ -37,9 +37,9 @@
                 </tr>
                 {{#blocks}}
                 <tr>
-                    <td><a href="./block/{{height}}">{{height}}</a></td>
+                    <td><a href="__prefix__/block/{{height}}">{{height}}</a></td>
                     <td>{{age}} ({{time_delta}})</td>
-                    <td><a href="./block/{{hash}}">{{hash}}</a></td>
+                    <td><a href="__prefix__/block/{{hash}}">{{hash}}</a></td>
                     <td>{{notx}}</td>
                     <td>{{fees}}</td>
                     <td>{{xmr_outputs}}</td>
@@ -51,11 +51,11 @@
 
             <div class="center" style="text-align: center;">
              {{^is_page_zero}}
-               <a href="./page/{{prev_page}}">previous page</a> |
-               <a href="./">first page</a> |
+               <a href="__prefix__/page/{{prev_page}}">previous page</a> |
+               <a href="__prefix__/">first page</a> |
              {{/is_page_zero}}
-                current page: {{page_no}}/<a href="./page/{{total_page_no}}">{{total_page_no}}</a>
-                | <a href="./page/{{next_page}}">next page</a>
+                current page: {{page_no}}/<a href="__prefix__/page/{{total_page_no}}">{{total_page_no}}</a>
+                | <a href="__prefix__/page/{{next_page}}">next page</a>
             </div>
 
     </div>

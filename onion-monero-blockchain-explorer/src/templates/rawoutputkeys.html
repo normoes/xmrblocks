@@ -6,7 +6,7 @@
 
 
     <div class="center">
-        <form action="./checkrawoutputkeys" method="post" style="width:100%; margin-top:15px" class="style-1">
+        <form action="__prefix__/checkrawoutputkeys" method="post" style="width:100%; margin-top:15px" class="style-1">
             Paste base64 encoded, signed output keys data here<br/>
             (In Linux, can get base64 signed raw tx data: <i>base64 your_output_keys_filename | xclip -selection clipboard</i>)<br/>
             (In Windows, can get base64 signed raw tx data: <i>certutil.exe -encode -f your_output_keys_filename encoded.txt & type "encoded.txt" | clip</i>)<br/>

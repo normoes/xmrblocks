@@ -1,7 +1,7 @@
 
 <div>
 
-    <H4 style="margin:5px">Tx hash: <a href="./tx/{{tx_hash}}">{{tx_hash}}</a></H4>
+    <H4 style="margin:5px">Tx hash: <a href="__prefix__/tx/{{tx_hash}}">{{tx_hash}}</a></H4>
     <H5 style="margin:5px">Tx public key: {{tx_pub_key}}</H5>
 
 
@@ -102,7 +102,7 @@
                                   <td style="text-align: center;">
                                       Ring member {{mixin_pub_key}} might use your outputs
                                       <br/>
-                                      from tx of hash: <a href="./tx/{{mix_tx_hash}}">{{mix_tx_hash}}</a>
+                                      from tx of hash: <a href="__prefix__/tx/{{mix_tx_hash}}">{{mix_tx_hash}}</a>
                                       <br/>(tx public key: {{mix_tx_pub_key}})
                                   </td>
                               </tr>

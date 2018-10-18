@@ -91,8 +91,6 @@ RUN apt-get purge -y \
 FROM debian:stable-slim
 WORKDIR /data
 COPY --from=builder /data/xmrblocks /usr/local/bin
-# COPY --from=builder /data/templates /data/templates
-COPY onion-monero-blockchain-explorer/src/templates /data/templates
 COPY --from=builder /data/su-exec /usr/local/bin/
 
 RUN apt-get update -qq && apt-get install -y \
@@ -105,6 +103,7 @@ RUN apt-get update -qq && apt-get install -y \
    && apt-get autoremove --purge -y \
    && rm -rf /var/tmp/* /tmp/* /var/lib/apt/lists/*
 
+COPY onion-monero-blockchain-explorer/src/templates /data/templates_template
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
@@ -115,5 +114,6 @@ ENV USER_ID 1000
 ENV PORT 8081
 ENV LMDB_PATH /monero
 ENV ENABLE_AUTOREFRESH 0
+ENV URL_PREFIX ""
 
 ENTRYPOINT ["/entrypoint.sh"]

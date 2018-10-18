@@ -36,7 +36,7 @@
                     <input type="hidden" id="key_img_{{key_image}}" name="key_sig_pair_{{key_image}}" value="{{signature}}">
                         <tr>
                             <td>{{output_no}}</td>
-                            <td><a href="./tx/{{tx_hash}}">{{output_pub_key}}</a></td>
+                            <td><a href="__prefix__/tx/{{tx_hash}}">{{output_pub_key}}</a></td>
                             <td>{{timestamp}}</td>
                             <td>{{is_ringct}}</td>
                             {{#are_key_images_known}}

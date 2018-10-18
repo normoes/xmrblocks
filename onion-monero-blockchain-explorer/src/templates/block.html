@@ -5,11 +5,11 @@
 
 
     {{#have_prev_hash}}
-    <H5>Previous block: <a href="./block/{{prev_hash}}">{{prev_hash}}</a></H5>
+    <H5>Previous block: <a href="__prefix__/block/{{prev_hash}}">{{prev_hash}}</a></H5>
     {{/have_prev_hash}}
 
     {{#have_next_hash}}
-    <H5>Next block: <a href="./block/{{next_hash}}">{{next_hash}}</a></H5>
+    <H5>Next block: <a href="__prefix__/block/{{next_hash}}">{{next_hash}}</a></H5>
     {{/have_next_hash}}
 
 
@@ -47,7 +47,7 @@
         </tr>
         {{#coinbase_txs}}
             <tr>
-                <td><a href="./tx/{{hash}}">{{hash}}</a>
+                <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a>
                 <td>{{sum_outputs}}</td>
                 <td>{{tx_size}}</td>
                 <td>{{version}}</td>
@@ -72,7 +72,7 @@
             </tr>
             {{#blk_txs}}
                 <tr>
-                    <td><a href="./tx/{{hash}}">{{hash}}</a></td>
+                    <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
                     <td>{{sum_outputs}}</td>
                     <td>{{tx_fee}}</td>
                     <td>{{mixin}}</td>
@@ -87,8 +87,8 @@
 
     {{#enable_as_hex}}
         <h5 style="margin-top:1px">
-            <a href="./blockhex/{{blk_height}}">Block as hex</a>
-            | <a href="./blockhexcomplete/{{blk_height}}">Complete block as hex</a>
+            <a href="__prefix__/blockhex/{{blk_height}}">Block as hex</a>
+            | <a href="__prefix__/blockhexcomplete/{{blk_height}}">Complete block as hex</a>
         </h5>
     {{/enable_as_hex}}
 
