@@ -7,7 +7,7 @@ services:
     volumes:
       # /monero in container should eventually contain the contents of the folder .bitmonero/lmdb
       - /mnt/bck/development/Monero/stagenet/lmdb:/monero
-      - ./onion-monero-blockchain-explorer/src/templates:/data/templates_template/
+      - ./templates:/data/templates_template/
     ports:
       - "8081:8081"
     environment:
@@ -16,7 +16,7 @@ services:
       - LMDB_PATH=/monero
       - ENABLE_AUTOREFRESH=1
       - URL_PREFIX=
-      # - URL_PREFIX=/explorer/stagenet/  # community-hub nginx location block
+      # - URL_PREFIX=/explorer/stagenet  # community-hub nginx location block
     restart: unless-stopped
     logging:
       driver: "json-file"

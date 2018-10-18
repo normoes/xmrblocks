@@ -1,4 +1,4 @@
 *
 !Dockerfile
 !entrypoint.sh
-!onion-monero-blockchain-explorer/src/templates
+!templates/
