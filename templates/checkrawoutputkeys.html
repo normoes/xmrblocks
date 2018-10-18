@@ -1,0 +1,63 @@
+<div>
+
+    <div>
+        <h3 class="title">Signed Outputs Public Keys Checker</h3>
+    </div>
+
+    <h3 class="title">Data file prefix: {{data_prefix}}</h3>
+
+    {{#has_error}}
+        <h4 style="color:red">Attempt failed</h4>
+        <h4>{{error_msg}}</h4>
+    {{/has_error}}
+    {{^has_error}}
+        <h4>Output keys for address: {{address}}</h4>
+        <h4>Viewkey: {{viewkey}}</h4>
+        {{#has_total_xmr}}
+            <h4>Total xmr: {{total_xmr}}</h4>
+        {{/has_total_xmr}}
+
+        <div class="center">
+
+            <form method="post" style="width:100%; margin-top:15px" class="style-1">
+                <div class="segment">
+                    <table class="table">
+                        <tr>
+                            <th>Output no.</th>
+                            <th>Public key</th>
+                            <th>Timestamp</th>
+                            <th>RingCT</th>
+                            {{#are_key_images_known}}
+                            <th>Is spent?</th>
+                            {{/are_key_images_known}}
+                            <th>Amount</th>
+                        </tr>
+                        {{#output_keys}}
+                        <input type="hidden" id="key_img_{{key_image}}" name="key_sig_pair_{{key_image}}" value="{{signature}}">
+                        <tr>
+                            <td>{{output_no}}</td>
+                            <td><a href="__prefix__/tx/{{tx_hash}}">{{output_pub_key}}</a></td>
+                            <td>{{timestamp}}</td>
+                            <td>{{is_ringct}}</td>
+                            {{#are_key_images_known}}
+                            <td>{{^is_spent}}
+                                <span style="color: #008009;font-weight: bold">{{is_spent}}</span>
+                                {{/is_spent}}
+                                {{#is_spent}}
+                                {{is_spent}}
+                                {{/is_spent}}
+                            </td>
+                            {{/are_key_images_known}}
+                            <td>{{amount}}</td>
+
+                        </tr>
+                        {{/output_keys}}
+                    </table>
+                </div>
+            </form>
+
+        </div>
+
+    {{/has_error}}
+
+</div>
