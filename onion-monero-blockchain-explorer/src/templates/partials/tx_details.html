@@ -1,68 +1,68 @@
 
 <div>
 
-    <H4 style="margin:5px">Tx hash: {{tx_hash}}</H4>
+  <p>Tx hash: <span class="inline-code">{{tx_hash}}</span></p>
     {{#enable_mixins_details}}
-        <H5 style="margin:5px">Tx prefix hash: {{tx_prefix_hash}}</H5>
+        <p>Tx prefix hash: <span class="inline-code">{{tx_prefix_hash}}</span></p>
     {{/enable_mixins_details}}
-    <H5 style="margin:5px">Tx public key: <span id="tx_pub_key">{{tx_pub_key}}</span></H5>
+    <p>Tx public key: <span id="tx_pub_key" class="inline-code">{{tx_pub_key}}</span></p>
     <span id="add_tx_pub_keys" style="display: none;">{{add_tx_pub_keys}}</span>
 
     {{#has_payment_id}}
-        <H5 style="margin:5px">Payment id: <span id="payment_id">{{payment_id}}</span></H5>
-        <H5 style="margin:5px">Payment id as ascii: {{payment_id_as_ascii}}</H5>
+        <p>Payment id: <span id="payment_id" class="inline-code">{{payment_id}}</span></p>
+        <p>Payment id as ascii: <span class="inline-code">{{payment_id_as_ascii}}</span></p>
     {{/has_payment_id}}
 
     {{#has_payment_id8}}
-        <H5 style="margin:5px">Payment id (encrypted): <span id="payment_id">{{payment_id8}}</span></H5>
+        <p>Payment id (encrypted): <span id="payment_id" class="inline-code">{{payment_id8
+          }}</span></p>
     {{/has_payment_id8}}
 
 
     {{#have_prev_hash}}
-        <H5>Previous tx: <a href="__prefix__/tx/{{prev_hash}}">{{prev_hash}}</a></H5>
+
+        <p>Previous tx: <span class="inline-code"><a href="__prefix__/tx/{{prev_hash}}">{{prev_hash}}</a></span></p>
     {{/have_prev_hash}}
 
     {{#have_next_hash}}
-        <H5>Next tx: <a href="__prefix__/tx/{{next_hash}}">{{next_hash}}</a></H5>
+        <p>Next tx: <span class="inline-code"><a href="__prefix__/tx/{{next_hash}}">{{next_hash}}</a></span></p>
     {{/have_next_hash}}
 
 
-
-    <table class="center" style="width: 80%; margin-top:10px">
+    <div class="segment">
+      <table class="table">
         {{^have_raw_tx}}
         <tr>
-            <td>Timestamp: {{blk_timestamp_uint}}</td>
-            <td>Timestamp [UCT]: {{blk_timestamp}}</td>
-            <td>Age [y:d:h:m:s]: {{delta_time}}</td>
+          <td>Timestamp: {{blk_timestamp_uint}}</td>
+          <td>Timestamp [UCT]: {{blk_timestamp}}</td>
+          <td>Age [y:d:h:m:s]: {{delta_time}}</td>
         </tr>
         {{/have_raw_tx}}
         <tr>
-            <td>Block: <a href="__prefix__/block/{{blk_height}}">{{blk_height}}</a></td>
-            <td>Fee (per_kB): {{tx_fee}} ({{payed_for_kB}})</td>
-            <td>Tx size: {{tx_size}} kB</td>
+          <td>Block: <a href="__prefix__/block/{{blk_height}}">{{blk_height}}</a></td>
+          <td>Fee (per_kB): {{tx_fee}} ({{payed_for_kB}})</td>
+          <td>Tx size: {{tx_size}} kB</td>
         </tr>
         <tr>
-            <td>Tx version: {{tx_version}}</td>
-            <td>No of confirmations: {{confirmations}}</td>
-            <td>RingCT/type:  {{#is_ringct}}yes/{{rct_type}}{{/is_ringct}}{{^is_ringct}}no{{/is_ringct}}</td>
+          <td>Tx version: {{tx_version}}</td>
+          <td>No of confirmations: {{confirmations}}</td>
+          <td>RingCT/type:  {{#is_ringct}}yes/{{rct_type}}{{/is_ringct}}{{^is_ringct}}no{{/is_ringct}}</td>
         </tr>
-
-
         <tr>
-            <td colspan="3" style="max-width:700px">Extra: {{extra}}</td>
+          <td colspan="3" style="max-width:700px">Extra: {{extra}}</td>
         </tr>
+      </table>
+    </div>
 
 
-    </table>
-
-
-  <h3>{{outputs_no}} output(s) for total of {{outputs_xmr_sum}} xmr</h3>
-  <div class="center">
-      <table class="center">
+  <h3 class="title">{{outputs_no}} output(s) for total of {{outputs_xmr_sum}}
+    xmr</h3>
+  <div class="segment">
+      <table class="table">
           <tr>
-              <td>stealth address</td>
-              <td>amount</td>
-              <td>amount idx</td>
+              <th>stealth address</th>
+              <th>amount</th>
+              <th>amount idx</th>
           </tr>
           {{#outputs}}
           <tr>
@@ -75,7 +75,7 @@
   </div>
 
     {{^have_raw_tx}}
-    <div class="center" style="width:90%">
+    <div>
         <div class="tabs">
 
             <div class="tab">
@@ -93,20 +93,29 @@
                             Note: address/subaddress and viewkey are sent to the server, as the calculations are done on the server side
                         {{/enable_js}}
                     </h5>
-                    <form action="__prefix__/myoutputs" method="post" style="width:100%; margin-top:2px" class="style-1">
-                        <input type="hidden" name="tx_hash" value="{{tx_hash}}"><br/>
-                        <input type="text" name="xmr_address" size="110" placeholder="Monero address/subaddress"><br/>
-                        <input type="text" name="viewkey" size="110" placeholder="Private viewkey" style="margin-top:5px"><br/>
-                        <input type="hidden" name="raw_tx_data" value="{{raw_tx_data}}">
+                    <form action="__prefix__/myoutputs" method="post"
+                          style="width:100%; margin-top: 10px" class="style-1">
+                        <input class="input" type="hidden" name="tx_hash"
+                                value="{{tx_hash}}"><br/>
+                        <input class="input" type="text" name="xmr_address" size="110"
+                                placeholder="Monero address/subaddress"><br/>
+                        <input class="input" type="text" name="viewkey" size="110"
+                                placeholder="Private viewkey"
+                               style="margin-top: 10px"><br/>
+                        <input class="input" type="hidden" name="raw_tx_data"
+                                value="{{raw_tx_data}}">
                         <!--above raw_tx_data field only used when checking raw tx data through tx pusher-->
 
                         {{#enable_js}}
                         <!-- if have js, DONOT submit the form to server.
                              change submit button, to just a button -->
-                            <button type="button" style="margin-top:5px" id="decode_btn" >Decode outputs</button>
+                            <button class="button" type="button"
+                                    style="margin-top: 15px"
+                                     id="decode_btn" >Decode outputs</button>
                         {{/enable_js}}
                         {{^enable_js}}
-                            <input type="submit" value="Decode outputs" style="margin-top:5px" >
+                            <input class="button" type="submit" value="Decode outputs"
+                                    style="margin-top: 15px" >
                         {{/enable_js}}
                     </form>
                 </div>
@@ -129,20 +138,28 @@
                             Note: address/subaddress and tx private key are sent to the server, as the calculations are done on the server side
                         {{/enable_js}}
                     </h5>
-                    <form action="__prefix__/prove" method="post" style="width:100%;margin-top:2px" class="style-1">
-                       <input type="hidden" name="txhash" value="{{tx_hash}}"><br/>
-                       <input type="text" name="txprvkey" size="120" placeholder="Tx private key"><br/>
-                        <input type="hidden" name="raw_tx_data" value="{{raw_tx_data}}">
+                    <form action="__prefix__/prove" method="post" style="width:100%;
+                    margin-top: 10px" class="style-1">
+                       <input class="input" type="hidden" name="txhash"
+                               value="{{tx_hash}}"><br/>
+                       <input class="input" type="text" name="txprvkey" size="120"
+                               placeholder="Tx private key"><br/>
+                        <input class="input" type="hidden" name="raw_tx_data"
+                                value="{{raw_tx_data}}">
                         <!--above raw_tx_data field only used when checking raw tx data through tx pusher-->
-                       <input type="text" name="xmraddress" size="120" placeholder="Recipient's monero address/subaddress" style="margin-top:5px"><br/>
+                       <input class="input" type="text" name="xmraddress" size="120"
+                               placeholder="Recipient's monero address/subaddress" style="margin-top: 10px"><br/>
 
                         {{#enable_js}}
                             <!-- if have js, DONOT submit the form to server.
                                  change submit button, to just a button -->
-                            <button type="button" style="margin-top:5px" id="prove_btn">Prove sending</button>
+                            <button class="button" type="button"
+                                    style="margin-top: 15px"
+                                     id="prove_btn">Prove sending</button>
                         {{/enable_js}}
                         {{^enable_js}}
-                           <input type="submit" value="Prove sending" style="margin-top:5px">
+                           <input class="button" type="submit" value="Prove sending"
+                                  style="margin-top: 15px">
                         {{/enable_js}}
 
                     </form>
@@ -409,14 +426,14 @@
     {{/inputs_xmr_sum_not_zero}}
 
     {{#show_part_of_inputs}}
-        <h5 style="margin-top: 2px">
+        <h5 class="centered" style="margin-top: 2px">
            Only {{max_no_of_inputs_to_show}} inputs are shown. To see all,
             click "<a href="__prefix__/tx/{{tx_hash}}/1">more details</a>"
         </h5>
     {{/show_part_of_inputs}}
 
-    <div class="center">
-       <table class="center">
+    <div class="segment">
+       <table class="table">
       {{#inputs}}
         <tr>
           <td style="text-align: left;">
@@ -521,9 +538,7 @@
 
       {{/inputs}}
       </table>
-
-
-  </div>
+    </div>
 
 
  {{/has_inputs}}
@@ -531,7 +546,7 @@
 {{^have_raw_tx}}
     {{^with_ring_signatures}}
         {{#show_more_details_link}}
-            <h5 style="margin-top:1px">
+            <h5 class="centered" style="margin-top:1px">
                 <a href="__prefix__/tx/{{tx_hash}}/1">More details</a>
                 {{#enable_as_hex}}
                     | <a href="__prefix__/txhex/{{tx_hash}}">Tx as hex</a>
@@ -541,17 +556,21 @@
         {{/show_more_details_link}}
     {{/with_ring_signatures}}
     {{#with_ring_signatures}}
-        <label id="show-decoded-inputs" for="toggle-1">Show JSON representation of tx</label>
-        <input type="checkbox" id="toggle-1">
-        <div id="decoded-inputs">
+        <div class="segment" style="padding: 1.5rem">
+          <label id="show-decoded-inputs" for="toggle-1" class="primary">Show JSON
+            representation of tx</label>
+          <input type="checkbox" id="toggle-1">
+          <div id="decoded-inputs">
             <div class="center">
-                <code style="white-space: pre-wrap; font-size: 10px">
-                    {{tx_json}}
-                </code>
+              <code style="white-space: pre-wrap; font-size: 10px">
+                {{tx_json}}
+              </code>
             </div>
+          </div>
+          <br/><br/>
+          <h5 class="centered" style="margin-top:1px"><a href="__prefix__/tx/{{tx_hash}}">Less
+            details</a></h5>
         </div>
-        <br/><br/>
-        <h5 style="margin-top:1px"><a href="__prefix__/tx/{{tx_hash}}">Less details</a></h5>
     {{/with_ring_signatures}}
 {{/have_raw_tx}}
 

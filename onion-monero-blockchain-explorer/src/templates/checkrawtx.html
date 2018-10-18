@@ -2,11 +2,10 @@
 
     <div class="center">
         <br/>
-        <h3 class="center">Transaction checking</h3>
+        <h3 class="title">Transaction checking</h3>
     </div>
 
     <div class="center">
-
         {{#has_error}}
             <h4 style="color:red">Checking tx failed</h4>
             <h4>{{error_msg}}</h4>
@@ -50,30 +49,33 @@
 
                     <h4>Outputs selected for this tx (total: {{sum_outputs_amounts}})</h4>
                     {{#dest_sources}}
-                                <table style="width: 100%; margin-top:10px">
-                                    <tr>
-                                        <td>Output Index</td>
-                                        <td>Stealth address</td>
-                                        <td>Is this real output</td>
-                                        <td>Age {{age_format}}</td>
-                                        <td>Amount</td>
-                                    </tr>
-                                    {{#outputs}}
-                                        <tr>
-                                            <td>{{out_index}}</td>
-                                            <td><a href="__prefix__/tx/{{tx_hash}}">{{out_pub_key}}</a></td>
-                                            {{#is_real}}
-                                                <td><span style="color: #008009;font-weight: bold">{{is_real}}</span></td>
-                                            {{/is_real}}
-                                            {{^is_real}}
-                                                <td>{{is_real}}</td>
-                                            {{/is_real}}
-                                            <td>{{output_age}}</td>
-                                            <td>{{output_amount}}</td>
-                                        </tr>
-                                       <!-- <tr><td colspan="3">&nbsp;  &nbsp; ctkey: {{ctkey}}</td></tr>-->
-                                    {{/outputs}}
-                                </table>
+
+                        <div class="segment">
+                            <table class="table">
+                                <tr>
+                                    <th>Output Index</th>
+                                    <th>Stealth address</th>
+                                    <th>Is this real output</th>
+                                    <th>Age {{age_format}}</th>
+                                    <th>Amount</th>
+                                </tr>
+                                {{#outputs}}
+                                <tr>
+                                    <td>{{out_index}}</td>
+                                    <td><a href="__prefix__/tx/{{tx_hash}}">{{out_pub_key}}</a></td>
+                                    {{#is_real}}
+                                    <td><span style="color: #008009;font-weight: bold">{{is_real}}</span></td>
+                                    {{/is_real}}
+                                    {{^is_real}}
+                                    <td>{{is_real}}</td>
+                                    {{/is_real}}
+                                    <td>{{output_age}}</td>
+                                    <td>{{output_amount}}</td>
+                                </tr>
+                                <!-- <tr><td colspan="3">&nbsp;  &nbsp; ctkey: {{ctkey}}</td></tr>-->
+                                {{/outputs}}
+                            </table>
+                        </div>
                     {{/dest_sources}}
                     <h4>Change to be returned to the sender: {{change_amount}}</h4>
                 </div>
@@ -81,7 +83,7 @@
         {{/unsigned_tx_given}}
 
         {{^unsigned_tx_given}}
-            <h3>Details of signed raw tx data given</h3>
+            <h3 class="title">Details of signed raw tx data given</h3>
             {{#txs}}
                 <h5>
                     {{#dest_infos}}
@@ -104,11 +106,7 @@
                     </div>
                 {{/tx_json}}
             {{/txs}}
-
         {{/unsigned_tx_given}}
-
-
     </div>
-
     <br/>
 </div>
