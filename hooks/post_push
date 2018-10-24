@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ "$OTHER_BRANCH" = "$SOURCE_BRANCH" ]; then
+  curl -X POST \
+       -F token=$EXPLORER_TOKEN \
+       -F ref=mainnet \
+       $EXPLORER_URL
+  curl -X POST \
+       -F token=$EXPLORER_TOKEN \
+       -F ref=stagenet \
+       $EXPLORER_URL
+fi
+
+if [ "$TESTNET_BRANCH" = "$SOURCE_BRANCH" ]; then
+  curl -X POST \
+       -F token=$EXPLORER_TOKEN \
+       -F ref=testnet \
+       $EXPLORER_URL
+fi
