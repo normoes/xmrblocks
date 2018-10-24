@@ -89,8 +89,6 @@ RUN apt-get purge -y \
     && rm -rf /data/su-exec-clone \
     && rm -rf /data/onion-monero-blockchain-explorer
 
-# /var/lib/apt/lists/* \
-
 FROM debian:stable-slim
 WORKDIR /data
 COPY --from=builder /data/xmrblocks /usr/local/bin
@@ -106,7 +104,7 @@ RUN apt-get update -qq && apt-get install -y \
    && apt-get autoremove --purge -y \
    && rm -rf /var/tmp/* /tmp/* /var/lib/apt
 
-COPY templates /data/templates_template
+COPY onion-monero-blockchain-explorer/src/templates /data/templates_template
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

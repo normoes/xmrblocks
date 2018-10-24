@@ -1,1 +1,10 @@
-onion-monero-blockchain-explorer/
+# not the folder itself
+!onion-monero-blockchain-explorer/
+# but everything within
+onion-monero-blockchain-explorer/*
+# except the src folder
+!onion-monero-blockchain-explorer/src/
+# but everything withing the src folder
+onion-monero-blockchain-explorer/src/*
+# except the templates folder
+!onion-monero-blockchain-explorer/src/templates/
