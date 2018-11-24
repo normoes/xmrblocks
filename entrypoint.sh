@@ -17,14 +17,12 @@ if [ "$(id -u)" = 0 ]; then
   cp -R /data/templates_template/. /data/templates/
   for i in /data/templates/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
   for i in /data/templates/partials/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
-  su-exec xmrblocks $@
-  # cannot use exec with xmrblocks
-  # cryptonote::DB_ERROR_TXN_START
-  # exec su-exec xmrblocks $@
-  exit 1
+  # su-exec xmrblocks $@
+  #  2>&1
+  exec su-exec xmrblocks $@
+  # exit 1
 fi
 
-$@
-# cannot use exec with xmrblocks
-# cryptonote::DB_ERROR_TXN_START
-# exec $@
+# $@
+# 2>&1
+exec $@
