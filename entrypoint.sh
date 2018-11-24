@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# exec not possibles
+# WARNING	blockchain.db.lmdb	src/blockchain_db/lmdb/db_lmdb.cpp:75	Failed to create a read transaction for the db: Resource temporarily unavailable
+# terminate called after throwing an instance of 'cryptonote::DB_ERROR_TXN_START'
+#   what():  Failed to create a read transaction for the db: Resource temporarily unavailable
 
 # used for xmrblocks
 OPTIONS="-b $LMDB_PATH --port $PORT  --enable-autorefresh-option=$ENABLE_AUTOREFRESH"
@@ -17,12 +21,14 @@ if [ "$(id -u)" = 0 ]; then
   cp -R /data/templates_template/. /data/templates/
   for i in /data/templates/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
   for i in /data/templates/partials/*.html; do sed  -i "s|\_\_prefix\_\_|$URL_PREFIX|" $i; done
-  # su-exec xmrblocks $@
-  #  2>&1
-  exec su-exec xmrblocks $@
-  # exit 1
+  su-exec xmrblocks $@
+  # cannot use exec with xmrblocks
+  # cryptonote::DB_ERROR_TXN_START
+  # exec su-exec xmrblocks $@
+  exit 1
 fi
 
-# $@
-# 2>&1
-exec $@
+$@
+# cannot use exec with xmrblocks
+# cryptonote::DB_ERROR_TXN_START
+# exec $@
