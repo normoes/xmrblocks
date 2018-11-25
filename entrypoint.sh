@@ -25,7 +25,7 @@ if [ "$(id -u)" = 0 ]; then
   # cannot use exec with xmrblocks
   # cryptonote::DB_ERROR_TXN_START
   # exec su-exec xmrblocks $@
-  exit 1
+  exit 0
 fi
 
 $@
