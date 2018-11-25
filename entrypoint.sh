@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# exec not possibles
+# WARNING	blockchain.db.lmdb	src/blockchain_db/lmdb/db_lmdb.cpp:75	Failed to create a read transaction for the db: Resource temporarily unavailable
+# terminate called after throwing an instance of 'cryptonote::DB_ERROR_TXN_START'
+#   what():  Failed to create a read transaction for the db: Resource temporarily unavailable
 
 # used for xmrblocks
 OPTIONS="-b $LMDB_PATH --port $PORT  --enable-autorefresh-option=$ENABLE_AUTOREFRESH"
@@ -21,7 +25,7 @@ if [ "$(id -u)" = 0 ]; then
   # cannot use exec with xmrblocks
   # cryptonote::DB_ERROR_TXN_START
   # exec su-exec xmrblocks $@
-  exit 1
+  exit 0
 fi
 
 $@
