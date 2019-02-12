@@ -105,6 +105,7 @@ RUN apt-get update -qq && apt-get install -y \
        libpcsclite-dev \
        libcurl4-openssl-dev \
        libsodium-dev \
+       libhidapi-libusb0 \
    && apt-get autoremove --purge -y \
    && rm -rf /var/tmp/* /tmp/* /var/lib/apt
 
