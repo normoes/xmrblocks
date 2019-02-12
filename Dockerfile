@@ -8,6 +8,9 @@ RUN apt-get update -qq && apt-get -y install -f \
         # clang \
         pkg-config \
         libboost-all-dev \
+        miniupnpc \
+        libhidapi-dev \
+        libhidapi-libusb0 \
         libssl-dev \
         libzmq3-dev \
         libpgm-dev \
@@ -54,9 +57,10 @@ RUN cd monero \
 RUN cd /data \
     && apt-get update -qq && apt-get install -y \
         libcurl4-openssl-dev
+# checkout to develop branch for upcoming hard forks
 RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git \
     && cd onion-monero-blockchain-explorer  \
-    # && git checkout devel \  # upcoming hard forks
+    && git checkout devel \
     && mkdir build && cd build \
     && cmake -DMONERO_DIR=/data/monero .. \
     && make \
