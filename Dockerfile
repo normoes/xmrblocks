@@ -44,7 +44,7 @@ RUN cd /data \
 # Using 'USE_SINGLE_BUILDDIR=1 make' creates a unified build dir (/monero/build/release/bin)
 
 ARG MONERO_URL=https://github.com/monero-project/monero.git
-ARG BRANCH=master
+ARG BRANCH=release-v0.13
 ARG BUILD_PATH=/monero/build/release/bin
 
 RUN cd /data \
@@ -60,7 +60,7 @@ RUN cd /data \
 # checkout to develop branch for upcoming hard forks
 RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git \
     && cd onion-monero-blockchain-explorer  \
-    && git checkout devel \
+    # && git checkout devel \
     && mkdir build && cd build \
     && cmake -DMONERO_DIR=/data/monero .. \
     && make \
