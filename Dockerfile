@@ -38,13 +38,11 @@ RUN cd /data \
     && mv su-exec /data
 
 # BUILD_PATH:
-# v0.12.3.0: /monero/build/release/bin
-# v0.13.0.1-RC1: /monero/build/Linux/_no_branch_/release/bin
-# master:    /monero/build/Linux/master/release/bin
 # Using 'USE_SINGLE_BUILDDIR=1 make' creates a unified build dir (/monero/build/release/bin)
 
 ARG MONERO_URL=https://github.com/monero-project/monero.git
-ARG BRANCH=release-v0.13
+# ARG BRANCH=release-v0.13
+ARG BRANCH=master
 ARG BUILD_PATH=/monero/build/release/bin
 
 RUN cd /data \
