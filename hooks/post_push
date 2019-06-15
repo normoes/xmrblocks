@@ -21,4 +21,4 @@ if [ "$OTHER_BRANCH" = "$SOURCE_BRANCH" ]; then
 #        -F token=$EXPLORER_TOKEN \
 #        -F ref=testnet \
 #        $EXPLORER_URL
-# fi
+fi
