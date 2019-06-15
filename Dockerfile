@@ -58,7 +58,7 @@ RUN cd /data \
 # checkout to develop branch for upcoming hard forks
 RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git \
     && cd onion-monero-blockchain-explorer  \
-    # && git checkout devel \
+    && git checkout devel \
     && mkdir build && cd build \
     && cmake -DMONERO_DIR=/data/monero .. \
     && make \
