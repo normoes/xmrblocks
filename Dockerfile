@@ -26,14 +26,14 @@ RUN apt-get update -qq && apt-get -y install -f \
         libpcsclite-dev \
         libgtest-dev \
         git \
-    && cd /usr/src/gtest \
+    && cd /usr/src/gtest || exit 1 \
     && cmake . \
     && make \
     && mv libg* /usr/lib/
 
-RUN cd /data \
+RUN cd /data || exit 1 \
     && git clone https://github.com/ncopa/su-exec.git su-exec-clone \
-    && cd su-exec-clone \
+    && cd su-exec-clone || exit 1 \
     && make \
     && mv su-exec /data
 
@@ -45,21 +45,21 @@ ARG MONERO_URL=https://github.com/monero-project/monero.git
 ARG BRANCH=master
 ARG BUILD_PATH=/monero/build/release/bin
 
-RUN cd /data \
+RUN cd /data || exit 1 \
     && git clone -b "$BRANCH" --single-branch --depth 1 --recursive $MONERO_URL
-RUN cd monero \
+RUN cd monero || exit 1 \
     && USE_SINGLE_BUILDDIR=1 make
 
 # ENV CC /usr/bin/clang
 # ENV CXX /usr/bin/clang++
-RUN cd /data \
+RUN cd /data || exit 1 \
     && apt-get update -qq && apt-get install -y \
         libcurl4-openssl-dev
 # checkout to develop branch for upcoming hard forks
 RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git \
-    && cd onion-monero-blockchain-explorer  \
+    && cd onion-monero-blockchain-explorer || exit 1  \
     && git checkout devel \
-    && mkdir build && cd build \
+    && mkdir build && cd build || exit 1 \
     && cmake -DMONERO_DIR=/data/monero .. \
     && make \
     && mv /data/onion-monero-blockchain-explorer/build/xmrblocks /data/
