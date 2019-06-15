@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# docker hub's variable 'SOURCE_BRANCH' is used as 
+# * monero branch/tag to clone
+# * docker image tag to push
+
+docker pull $DOCKER_REPO:builder || true
+
+docker build \
+  --pull \
+  --target builder \
+  --cache-from $DOCKER_REPO:builder \
+  --build-arg BRANCH=$SOURCE_BRANCH \
+  -f ./Dockerfile \
+  -t $DOCKER_REPO:builder .
+
+docker push $DOCKER_REPO:builder
+
+docker pull $IMAGE_NAME || true
+
+docker build \
+  --pull \
+  --cache-from $DOCKER_REPO:builder \
+  --cache-from $IMAGE_NAME \
+  --build-arg BRANCH=$SOURCE_BRANCH \
+  -f ./Dockerfile \
+  -t $IMAGE_NAME .
