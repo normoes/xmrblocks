@@ -59,6 +59,7 @@
     </div>
   </div>
   {{/network_info}}
+
   {{#emission}}
   <h3 style="font-size: 12px; margin-top: 2px">
     Monero emission (fees) is {{amount}} ({{fee_amount}}) as of {{blk_no}} block
@@ -77,60 +78,42 @@
 <h2 class="title">Transactions in older blocks<!--(height: {{height}})--></h2>
 {{/is_page_zero}}
 
-<div class="small">(Median size of 100 blocks:
-  {{blk_size_median}} kB)</div>
+ <div class="small">(Median size of 100 blocks: {{blk_size_median}} kB)
+ </div>
+ <div class="center">
+     <div class="segment">
+         <table class="table">
+             <tr>
+                 <th>height</td>
+                 <th>age {{age_format}}<!--(Δm)--></td>
+                 <th>size [kB]<!--(Δm)--></td>
+                 <th>transaction hash</td>
+                 <th>fee [&#181;&#x271]</td>
+                 <th>outputs</td>
+                 <th>in/out/pID</td>
+                 <th>tx size [kB]</td>
+             </tr>
+             {{#txs}}
+             <tr>
+                 <td><a href="__prefix__/block/{{height}}">{{height}}</a></td>
+                 <td>{{age}}<!--{{time_delta}}--></td>
+                 <td>{{blk_size}}</td>
+                 <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
+                 <td>{{fee_micro}}</td>
+                 <td>{{sum_outputs_short}}</td>
+                 <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
+                 <td>{{tx_size_short}}</td>
+             </tr>
+             {{/txs}}
+         </table>
+     </div>
 
-<div>
-  <div class="segment">
-    <table class="table">
-      <tr>
-        <th>height</th>
-        <th>age {{age_format}}<!--(Δm)--></th>
-        <th>size [kB]<!--(Δm)--></th>
-        <th>transaction hash</th>
-        <th>fee [&#181;&#x271]</th>
-        <th>outputs</th>
-        <th>in/out/pID</th>
-        <th>ring size</th>
-        <th>tx size [kB]</th>
-      </tr>
-      {{#txs}}
-      <tr>
-        <td><a href="__prefix__/block/{{height}}">{{height}}</a></td>
-        <td>{{age}}<!--{{time_delta}}--></td>
-        <td>{{blk_size}}</td>
-        <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
-        <td>{{fee_micro}}</td>
-        <td>{{sum_outputs_short}}</td>
-        <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
-        <td>{{mixin}}</td>
-        <td>{{tx_size_short}}</td>
-      </tr>
-      {{/txs}}
-    </table>
-  </div>
-
-  <div id="pages" style="text-align: center;">
-    {{^is_page_zero}}
-    <a href="__prefix__/page/{{prev_page}}">previous page</a> |
-    <a href="__prefix__/">first page</a> |
-    {{/is_page_zero}}
-    current page: {{page_no}} / <a href="__prefix__/page/{{total_page_no}}">
-    {{total_page_no}}</a>
-    | <a href="__prefix__/page/{{next_page}}">next page</a>
-  </div>
-</div>
-
-
-{{#show_cache_times}}
-<div>
-  <h6 style="margin-top: 1px;color:#949490">
-    Tx details construction time: {{construction_time_total}} s
-    <br/>
-    includes {{construction_time_cached}} s from block cache ({{cache_hits}}
-    hits)
-    and {{construction_time_non_cached}} s from non cache ({{cache_misses}}
-    misses)
-  </h6>
-</div>
-{{/show_cache_times}}
+    <div class="center" style="text-align: center;">
+     {{^is_page_zero}}
+       <a href="__prefix__/page/{{prev_page}}">previous page</a> |
+       <a href="__prefix__/">first page</a> |
+     {{/is_page_zero}}
+        current page: {{page_no}}/<a href="__prefix__/page/{{total_page_no}}">{{total_page_no}}</a>
+        | <a href="__prefix__/page/{{next_page}}">next page</a>
+    </div>
+ </div>

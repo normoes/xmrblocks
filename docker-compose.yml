@@ -2,11 +2,13 @@ version: '2'
 
 services:
   monero-explorer:
-    build: .
-    command: --testnet
+    build:
+      context: .
+      dockerfile: local.Dockerfile
+    command: --stagenet
     volumes:
       # /monero in container should eventually contain the contents of the folder .bitmonero/lmdb
-      - /mnt/bck/development/Monero/testnet/lmdb:/monero
+      - /mnt/bck/development/Monero/stagenet/lmdb:/monero
       - ./onion-monero-blockchain-explorer/src/templates:/data/templates_template/
     ports:
       - "8081:8081"

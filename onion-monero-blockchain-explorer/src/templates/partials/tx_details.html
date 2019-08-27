@@ -549,7 +549,8 @@
                 <a href="__prefix__/tx/{{tx_hash}}/1">More details</a>
                 {{#enable_as_hex}}
                     | <a href="__prefix__/txhex/{{tx_hash}}">Tx as hex</a>
-                    | <a href="__prefix__/ringmembershex/{{tx_hash}}">Tx ring members as hex</a>
+                    | <a href="__prefix__/ringmembershex/{{tx_hash}}">Ring member outputs/mixins as hex</a>
+                    | <a href="__prefix__/ringmemberstxhex/{{tx_hash}}">Full ring member txs as hex</a>
                 {{/enable_as_hex}}
             </h5>
         {{/show_more_details_link}}

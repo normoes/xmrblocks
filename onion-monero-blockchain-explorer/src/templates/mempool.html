@@ -15,7 +15,6 @@
         <th>fee/per_kB [&#181;&#x271]</th>
         <!--<th>outputs</th>-->
         <th>in/out/pID</th>
-        <th>ring size</th>
         <th>tx size [kB]</th>
       </tr>
       {{#mempooltxs}}
@@ -25,7 +24,6 @@
         <td>{{fee}}/{{payed_for_kB}}</td>
         <!--<td>{{xmr_outputs}}</td>-->
         <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
-        <td>{{mixin}}</td>
         <td>{{txsize}}</td>
       </tr>
       {{/mempooltxs}}
@@ -38,5 +36,6 @@
       <a href="__prefix__/txpool">Only {{no_of_mempool_tx_of_frontpage}} txs shown. Click here to see all of them</a>
     </div>
     {{/partial_mempool_shown}}
+
   {{/mempool_fits_on_front_page}}
 </div>
