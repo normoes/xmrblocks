@@ -1,8 +1,9 @@
-FROM debian:stable-slim as builder
+ARG DEBIAN_VERSION="${DEBIAN_VERSION:-stable-slim}"
+FROM debian:${DEBIAN_VERSION} as dependencies1
 
 WORKDIR /data
 
-RUN apt-get update -qq && apt-get -y install -f \
+RUN apt-get update -qq && apt-get -yqq --no-install-recommends install \
         build-essential \
         cmake \
         # clang \
@@ -25,16 +26,16 @@ RUN apt-get update -qq && apt-get -y install -f \
         graphviz \
         libpcsclite-dev \
         libgtest-dev \
-        git \
+        git > /dev/null \
     && cd /usr/src/gtest || exit 1 \
     && cmake . \
     && make \
     && mv libg* /usr/lib/
 
 RUN cd /data || exit 1 \
-    && git clone https://github.com/ncopa/su-exec.git su-exec-clone \
+    && git clone https://github.com/ncopa/su-exec.git su-exec-clone > /dev/null \
     && cd su-exec-clone || exit 1 \
-    && make \
+    && make > /dev/null \
     && mv su-exec /data
 
 # BUILD_PATH:
@@ -46,25 +47,25 @@ ARG BRANCH=master
 ARG BUILD_PATH=/monero/build/release/bin
 
 RUN cd /data || exit 1 \
-    && git clone -b "$BRANCH" --single-branch --depth 1 --recursive $MONERO_URL
+    && git clone -b "$BRANCH" --single-branch --depth 1 --recursive $MONERO_URL > /dev/null
 RUN cd monero || exit 1 \
-    && USE_SINGLE_BUILDDIR=1 make
+    && USE_SINGLE_BUILDDIR=1 make > /dev/null
 
 # ENV CC /usr/bin/clang
 # ENV CXX /usr/bin/clang++
 RUN cd /data || exit 1 \
-    && apt-get update -qq && apt-get install -y \
-        libcurl4-openssl-dev
+    && apt-get update -qq && apt-get install -yqq --no-install-recommends \
+        libcurl4-openssl-dev > /dev/null
 # checkout to develop branch for upcoming hard forks
-RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git \
+RUN git clone https://github.com/moneroexamples/onion-monero-blockchain-explorer.git > /dev/null \
     && cd onion-monero-blockchain-explorer || exit 1  \
-    && git checkout devel \
+    && git checkout devel > /dev/null \
     && mkdir build && cd build || exit 1 \
-    && cmake -DMONERO_DIR=/data/monero .. \
-    && make \
+    && cmake -DMONERO_DIR=/data/monero .. > /dev/null \
+    && make > /dev/null \
     && mv /data/onion-monero-blockchain-explorer/build/xmrblocks /data/
 
-RUN apt-get purge -y \
+RUN apt-get purge -yqq \
         build-essential \
         cmake \
         libboost-all-dev \
@@ -83,15 +84,15 @@ RUN apt-get purge -y \
         libpcsclite-dev \
         libgtest-dev \
         git \
-        libcurl4-openssl-dev \
-    && apt-get autoremove --purge -y \
-    && apt-get clean \
-    && rm -rf /var/tmp/* /tmp/* /var/lib/apt \
+        libcurl4-openssl-dev > /dev/null \
+    && apt-get autoremove --purge -yqq > /dev/null \
+    && apt-get clean > /dev/null \
+    && rm -rf /var/tmp/* /tmp/* /var/lib/apt/* > /dev/null \
     && rm -rf /data/monero \
     && rm -rf /data/su-exec-clone \
     && rm -rf /data/onion-monero-blockchain-explorer
 
-FROM debian:stable-slim
+FROM debian:${DEBIAN_VERSION}
 WORKDIR /data
 COPY --from=builder /data/xmrblocks /usr/local/bin
 COPY --from=builder /data/su-exec /usr/local/bin/
