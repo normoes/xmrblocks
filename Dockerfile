@@ -81,22 +81,22 @@ RUN echo "\e[32mcloning: $PROJECT_URL on branch: devel\e[39m" \
 RUN apt-get purge -yqq \
         build-essential \
         cmake \
-        # libboost-all-dev \
+        libboost-all-dev \
         libssl-dev \
         libzmq3-dev \
         libpgm-dev \
-        # libunbound-dev \
-        # libsodium-dev \
-        # libunwind8-dev \
+        libunbound-dev \
+        libsodium-dev \
+        libunwind8-dev \
         liblzma-dev \
         libreadline6-dev \
         libldns-dev \
         libexpat1-dev \
         doxygen \
         graphviz \
-        # libpcsclite-dev \
+        libpcsclite-dev \
         libgtest-dev \
-        # libcurl4-openssl-dev \
+        libcurl4-openssl-dev \
         git > /dev/null \
     && apt-get autoremove --purge -yqq > /dev/null \
     && apt-get clean > /dev/null \
@@ -110,15 +110,15 @@ WORKDIR /data
 COPY --from=builder /data/xmrblocks /usr/local/bin
 COPY --from=builder /data/su-exec /usr/local/bin/
 
-# RUN apt-get update -qq && apt-get install -yqq --no-install-recommends \
-#        libboost-all-dev \
-#        libunbound-dev \
-#        libunwind8-dev \
-#        libpcsclite-dev \
-#        libcurl4-openssl-dev \
-#        libsodium-dev \
-#        libhidapi-libusb0 > /dev/null \
-RUN apt-get autoremove --purge -yqq > /dev/null \
+RUN apt-get update -qq && apt-get install -yqq --no-install-recommends \
+       libboost-all-dev \
+       libunbound-dev \
+       libunwind8-dev \
+       libpcsclite-dev \
+       libcurl4-openssl-dev \
+       libsodium-dev \
+       libhidapi-libusb0 > /dev/null \
+    && apt-get autoremove --purge -yqq > /dev/null \
     && apt-get clean > /dev/null \
     && rm -rf /var/tmp/* /tmp/* /var/lib/apt/* > /dev/null
 
