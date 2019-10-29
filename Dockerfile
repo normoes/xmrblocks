@@ -251,12 +251,12 @@ RUN echo "\e[32mcloning: $PROJECT_URL on branch: $BRANCH\e[39m" \
         libreadline-dev \
     && USE_SINGLE_BUILDDIR=1 make release-static > /dev/null \
     && echo "\e[32mcopy and clean up\e[39m" \
-    && mv /data$BUILD_PATH/monerod /data/ \
-    && chmod +x /data/monerod \
-    && mv /data$BUILD_PATH/monero-wallet-rpc /data/ \
-    && chmod +x /data/monero-wallet-rpc \
-    && mv /data$BUILD_PATH/monero-wallet-cli /data/ \
-    && chmod +x /data/monero-wallet-cli \
+    # && mv /data$BUILD_PATH/monerod /data/ \
+    # && chmod +x /data/monerod \
+    # && mv /data$BUILD_PATH/monero-wallet-rpc /data/ \
+    # && chmod +x /data/monero-wallet-rpc \
+    # && mv /data$BUILD_PATH/monero-wallet-cli /data/ \
+    # && chmod +x /data/monero-wallet-cli \
     && cd /data || exit 1
 
 FROM index.docker.io/xmrto/monero-explorer:builder_monero as builder
@@ -274,14 +274,14 @@ ENV LDFLAGS='-static-libstdc++'
 # ENV CXX /usr/bin/clang++
 # checkout to develop branch for upcoming hard forks
 RUN cd /data || exit 1 \
-    && echo "\e[32mcloning: $PROJECT_URL on branch: $BRANCH\e[39m" \
+    && echo "\e[32mcloning: $PROJECT_URL on branch: devel\e[39m" \
     && git clone --single-branch --depth 1 $PROJECT_URL monero-explorer.git > /dev/null \
     && cd monero-explorer.git || exit 1  \
     && git checkout devel > /dev/null \
     && mkdir build && cd build || exit 1 \
-    && cmake -DMONERO_DIR=/data/monero .. > /dev/null \
+    && cmake -DMONERO_DIR=/data/monero.git .. > /dev/null \
     && make > /dev/null \
-    && mv /data/monero-explorer.git/build/xmrblocks /data/
+    && mv /data/monero-explorer.git/build/xmrblocks /data/ \
     && chmod +x /data/xmrblocks \
     && cd /data || exit 1 \
     && rm -rf /data/monero.git \
