@@ -15,32 +15,20 @@ docker build \
 
 docker push $DOCKER_REPO:dependencies1
 
-docker pull $DOCKER_REPO:dependencies2 || true
+docker pull $DOCKER_REPO:builder_monero || true
 
-docker build \
+docker build_monero \
   --pull \
-  --target dependencies2 \
+  --target builder_monero \
   --cache-from $DOCKER_REPO:dependencies1 \
-  --cache-from $DOCKER_REPO:dependencies2 \
+  --cache-from $DOCKER_REPO:builder_monero \
+  --build-arg BRANCH=$SOURCE_BRANCH \
   -f ./Dockerfile \
-  -t $DOCKER_REPO:dependencies2 .
+  -t $DOCKER_REPO:builder_monero .
 
-docker push $DOCKER_REPO:dependencies2
+docker push $DOCKER_REPO:builder_monero
 
-docker pull $DOCKER_REPO:dependencies3 || true
-
-docker build \
-  --pull \
-  --target dependencies3 \
-  --cache-from $DOCKER_REPO:dependencies1 \
-  --cache-from $DOCKER_REPO:dependencies2 \
-  --cache-from $DOCKER_REPO:dependencies3 \
-  -f ./Dockerfile \
-  -t $DOCKER_REPO:dependencies3 .
-
-docker push $DOCKER_REPO:dependencies3
-
-docker pull $DOCKER_REPO:builder || true
+docker pull $IMAGE_NAME:build || true
 
 docker build_monero \
   --pull \
@@ -61,8 +49,6 @@ docker build \
   --pull \
   --target builder \
   --cache-from $DOCKER_REPO:dependencies1 \
-  --cache-from $DOCKER_REPO:dependencies2 \
-  --cache-from $DOCKER_REPO:dependencies3 \
   --cache-from $DOCKER_REPO:builder_monero \
   --cache-from $DOCKER_REPO:builder \
   --build-arg BRANCH=$SOURCE_BRANCH \
@@ -76,8 +62,6 @@ docker pull $IMAGE_NAME || true
 docker build \
   --pull \
   --cache-from $DOCKER_REPO:dependencies1 \
-  --cache-from $DOCKER_REPO:dependencies2 \
-  --cache-from $DOCKER_REPO:dependencies3 \
   --cache-from $DOCKER_REPO:builder_monero \
   --cache-from $DOCKER_REPO:builder \
   --cache-from $IMAGE_NAME \
