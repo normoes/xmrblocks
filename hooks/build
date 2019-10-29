@@ -4,15 +4,70 @@
 # * monero branch/tag to clone
 # * docker image tag to push
 
+docker pull $DOCKER_REPO:dependencies1 || true
+
+docker build \
+  --pull \
+  --target dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  -f ./Dockerfile \
+  -t $DOCKER_REPO:dependencies1 .
+
+docker push $DOCKER_REPO:dependencies1
+
+docker pull $DOCKER_REPO:dependencies2 || true
+
+docker build \
+  --pull \
+  --target dependencies2 \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies2 \
+  -f ./Dockerfile \
+  -t $DOCKER_REPO:dependencies2 .
+
+docker push $DOCKER_REPO:dependencies2
+
+docker pull $DOCKER_REPO:dependencies3 || true
+
+docker build \
+  --pull \
+  --target dependencies3 \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies2 \
+  --cache-from $DOCKER_REPO:dependencies3 \
+  -f ./Dockerfile \
+  -t $DOCKER_REPO:dependencies3 .
+
+docker push $DOCKER_REPO:dependencies3
+
 docker pull $DOCKER_REPO:builder || true
+
+docker build_monero \
+  --pull \
+  --target builder_monero \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies2 \
+  --cache-from $DOCKER_REPO:dependencies3 \
+  --cache-from $DOCKER_REPO:builder_monero \
+  --build-arg BRANCH=$SOURCE_BRANCH \
+  -f ./Dockerfile \
+  -t $DOCKER_REPO:builder_monero .
+
+docker push $DOCKER_REPO:builder_monero
+
+docker pull $IMAGE_NAME:build || true
 
 docker build \
   --pull \
   --target builder \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies2 \
+  --cache-from $DOCKER_REPO:dependencies3 \
+  --cache-from $DOCKER_REPO:builder_monero \
   --cache-from $DOCKER_REPO:builder \
   --build-arg BRANCH=$SOURCE_BRANCH \
   -f ./Dockerfile \
-  -t $DOCKER_REPO:builder .
+  -t $IMAGE_NAME:builder .
 
 docker push $DOCKER_REPO:builder
 
@@ -20,6 +75,10 @@ docker pull $IMAGE_NAME || true
 
 docker build \
   --pull \
+  --cache-from $DOCKER_REPO:dependencies1 \
+  --cache-from $DOCKER_REPO:dependencies2 \
+  --cache-from $DOCKER_REPO:dependencies3 \
+  --cache-from $DOCKER_REPO:builder_monero \
   --cache-from $DOCKER_REPO:builder \
   --cache-from $IMAGE_NAME \
   --build-arg BRANCH=$SOURCE_BRANCH \
