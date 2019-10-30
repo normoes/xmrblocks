@@ -2,9 +2,13 @@ version: '2'
 
 services:
   monero-explorer:
+    # image: xmrto/monero-explorer:release-v0.15
     build:
       context: .
       dockerfile: local.Dockerfile
+      args:
+        BRANCH: release-v0.15 
+        DEBIAN_VERSION: "stable-20191014-slim"
     command: --stagenet
     volumes:
       # /monero in container should eventually contain the contents of the folder .bitmonero/lmdb
