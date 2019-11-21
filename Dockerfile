@@ -34,8 +34,8 @@ RUN apt-get update -qq && apt-get -yqq --no-install-recommends install \
         libgtest-dev \
         git > /dev/null \
     && cd /usr/src/gtest || exit 1 \
-    && cmake . \
-    && make \
+    && cmake . > /dev/null \
+    && make > /dev/null \
     && mv libg* /usr/lib/ \
     && cd /data || exit 1 \
     && echo "\e[32mbuilding: su-exec\e[39m" \
@@ -54,23 +54,27 @@ WORKDIR /data
 
 ARG PROJECT_URL=https://github.com/monero-project/monero.git
 ARG BRANCH=master
-ARG BUILD_PATH=/monero/build/release/bin
+ARG BUILD_PATH=/monero.git/build/release/bin
 
-RUN cd /data || exit 1 \
-    && git clone -b "$BRANCH" --single-branch --depth 1 --recursive $PROJECT_URL monero.git > /dev/null
-RUN cd monero.git || exit 1 \
+RUN echo "\e[32mcloning: $PROJECT_URL on branch: $BRANCH\e[39m" \
+    && cd /data || exit 1 \
+    && git clone --branch ${BRANCH} --single-branch --depth 1 --recursive ${PROJECT_URL} monero.git > /dev/null \
+    && cd monero.git || exit 1 \
+    && echo "\e[32mbuilding monero\e[39m" \
     && USE_SINGLE_BUILDDIR=1 make > /dev/null
 
 FROM index.docker.io/xmrto/monero-explorer:builder_monero as builder
 WORKDIR /data
 
 ARG PROJECT_URL=https://github.com/moneroexamples/onion-monero-blockchain-explorer.git
+# 'master' or 'devel'
+ARG BRANCH=master
 
 # ENV CC /usr/bin/clang
 # ENV CXX /usr/bin/clang++
 # checkout to develop branch for upcoming hard forks
 RUN echo "\e[32mcloning: $PROJECT_URL on branch: devel\e[39m" \
-    && git clone --branch devel --single-branch --depth 1 $PROJECT_URL monero-explorer.git > /dev/null \
+    && git clone --branch devel --single-branch --depth 1 ${PROJECT_URL} monero-explorer.git > /dev/null \
     && cd monero-explorer.git || exit 1  \
     # && git checkout devel > /dev/null \
     && mkdir build && cd build || exit 1 \
