@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: local.Dockerfile
       args:
-        BRANCH: release-v0.15 
+        BRANCH: v0.15.0.1
         DEBIAN_VERSION: "stable-20191014-slim"
     command: --stagenet
     volumes:

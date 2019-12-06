@@ -60,7 +60,7 @@
     {{^is_current_info}}
     <div class="card">
       <header class="card__header">Data from</header>
-      <div class="card__value">{{age}} {{age_format}} ago</div>
+      <div class="card__value">{{age}} {{age_format}}</div>
     </div>
     {{/is_current_info}}
   </div>
@@ -75,52 +75,51 @@
 
 </div>
 
-    {{{mempool_info}}}
+{{{mempool_info}}}
 
-    {{#is_page_zero}}
-      <h2 class="title">Transactions in the last {{no_of_last_blocks}} blocks</h2>
-    {{/is_page_zero}}
-    {{^is_page_zero}}
-      <h2 class="title">Transactions in older blocks<!--(height: {{height}})--></h2>
-    {{/is_page_zero}}
+{{#is_page_zero}}
+<h2 class="title">Transactions in the last {{no_of_last_blocks}} blocks</h2>
+{{/is_page_zero}}
+{{^is_page_zero}}
+<h2 class="title">Transactions in older blocks<!--(height: {{height}})--></h2>
+{{/is_page_zero}}
 
-    <div class="small">(Median size of 100 blocks: {{blk_size_median}} kB)
+ <div class="small">(Median size of 100 blocks: {{blk_size_median}} kB)
+ </div>
+ <div class="center">
+     <div class="segment">
+         <table class="table">
+             <tr>
+                 <th>height</td>
+                 <th>age {{age_format}}<!--(Δm)--></td>
+                 <th>size [kB]<!--(Δm)--></td>
+                 <th>transaction hash</td>
+                 <th>fee [&#181;&#x271]</td>
+                 <th>outputs</td>
+                 <th>in/out/pID</td>
+                 <th>tx size [kB]</td>
+             </tr>
+             {{#txs}}
+             <tr>
+                 <td><a href="__prefix__/block/{{height}}">{{height}}</a></td>
+                 <td>{{age}}<!--{{time_delta}}--></td>
+                 <td>{{blk_size}}</td>
+                 <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
+                 <td>{{fee_micro}}</td>
+                 <td>{{sum_outputs_short}}</td>
+                 <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
+                 <td>{{tx_size_short}}</td>
+             </tr>
+             {{/txs}}
+         </table>
+     </div>
+
+    <div class="center" style="text-align: center;">
+     {{^is_page_zero}}
+       <a href="__prefix__/page/{{prev_page}}">previous page</a> |
+       <a href="__prefix__/">first page</a> |
+     {{/is_page_zero}}
+        current page: {{page_no}}/<a href="__prefix__/page/{{total_page_no}}">{{total_page_no}}</a>
+        | <a href="__prefix__/page/{{next_page}}">next page</a>
     </div>
-
-    <div class="center">
-        <div class="segment">
-            <table class="table">
-                <tr>
-                    <td>height</td>
-                    <td>age {{age_format}}<!--(Δm)--></td>
-                    <td>size [kB]<!--(Δm)--></td>
-                    <td>transaction hash</td>
-                    <td>fee [&#181;&#x271]</td>
-                    <td>outputs</td>
-                    <td>in/out/pID</td>
-                    <td>tx size [kB]</td>
-                </tr>
-                {{#txs}}
-                <tr>
-                    <td><a href="__prefix__/block/{{height}}">{{height}}</a></td>
-                    <td>{{age}}<!--{{time_delta}}--></td>
-                    <td>{{blk_size}}</td>
-                    <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
-                    <td>{{fee_micro}}</td>
-                    <td>{{sum_outputs_short}}</td>
-                    <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
-                    <td>{{tx_size_short}}</td>
-                </tr>
-                {{/txs}}
-            </table>
-        </div>
-
-        <div class="center" style="text-align: center;">
-         {{^is_page_zero}}
-           <a href="__prefix__/page/{{prev_page}}">previous page</a> |
-           <a href="__prefix__/">first page</a> |
-         {{/is_page_zero}}
-            current page: {{page_no}}/<a href="__prefix__/page/{{total_page_no}}">{{total_page_no}}</a>
-            | <a href="__prefix__/page/{{next_page}}">next page</a>
-        </div>
-    </div>
+ </div>
