@@ -2,3 +2,4 @@
 !Dockerfile
 !entrypoint.sh
 !onion-monero-blockchain-explorer/src/templates/
+!patch.diff

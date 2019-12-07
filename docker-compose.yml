@@ -2,7 +2,7 @@ version: '2'
 
 services:
   monero-explorer:
-    # image: xmrto/monero-explorer:release-v0.15
+    # image: xmrto/monero-explorer
     build:
       context: .
       dockerfile: local.Dockerfile
