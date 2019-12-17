@@ -74,16 +74,16 @@ ARG BRANCH=master
 # ENV CXX /usr/bin/clang++
 # checkout to develop branch for upcoming hard forks
 
-COPY patch.diff /data
+# COPY patch.diff /data
 
 RUN echo "\e[32mcloning: $PROJECT_URL on branch: devel\e[39m" \
     && git clone --branch devel --single-branch --depth 1 ${PROJECT_URL} monero-explorer.git > /dev/null \
     && cd monero-explorer.git || exit 1  \
-    # && git checkout devel > /dev/null \
-    && echo "\e[32mapplying  patch\e[39m" \
-    && git apply --stat ../patch.diff \
-    && git apply --check ../patch.diff \
-    && git apply  ../patch.diff \
+    # # && git checkout devel > /dev/null \
+    # && echo "\e[32mapplying  patch\e[39m" \
+    # && git apply --stat ../patch.diff \
+    # && git apply --check ../patch.diff \
+    # && git apply  ../patch.diff \
     && mkdir build && cd build || exit 1 \
     && cmake -DMONERO_DIR=/data/monero.git .. > /dev/null \
     && make > /dev/null \
