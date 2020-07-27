@@ -76,8 +76,8 @@ ARG BRANCH=master
 
 # COPY patch.diff /data
 
-RUN echo "\e[32mcloning: $PROJECT_URL on branch: devel\e[39m" \
-    && git clone --branch devel --single-branch --depth 1 ${PROJECT_URL} monero-explorer.git > /dev/null \
+RUN echo "\e[32mcloning: $PROJECT_URL on branch: master\e[39m" \
+    && git clone --branch master --single-branch --depth 1 ${PROJECT_URL} monero-explorer.git > /dev/null \
     && cd monero-explorer.git || exit 1  \
     # && git checkout devel > /dev/null \
     # && echo "\e[32mapplying  patch\e[39m" \
