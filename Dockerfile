@@ -55,11 +55,14 @@ WORKDIR /data
 ARG PROJECT_URL=https://github.com/monero-project/monero.git
 ARG BRANCH=master
 ARG BUILD_PATH=/monero.git/build/release/bin
+ARG BUILD_BRANCH=$BRANCH
 
 RUN echo "\e[32mcloning: $PROJECT_URL on branch: $BRANCH\e[39m" \
     && cd /data || exit 1 \
-    && git clone --branch ${BRANCH} --single-branch --depth 1 --recursive ${PROJECT_URL} monero.git > /dev/null \
+    && git clone -n --branch ${BRANCH} --single-branch --depth 1 --recursive ${PROJECT_URL} monero.git > /dev/null \
     && cd monero.git || exit 1 \
+    && git checkout "$BUILD_BRANCH" \
+    && git submodule update --init --force \
     && echo "\e[32mbuilding monero\e[39m" \
     && USE_SINGLE_BUILDDIR=1 make > /dev/null
 
