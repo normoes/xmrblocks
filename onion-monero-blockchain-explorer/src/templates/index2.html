@@ -96,7 +96,7 @@
                  <th>transaction hash</td>
                  <th>fee [&#181;&#x271]</td>
                  <th>outputs</td>
-                 <th>in/out/pID</td>
+                 <th>in/out</td>
                  <th>tx size [kB]</td>
              </tr>
              {{#txs}}
@@ -107,7 +107,7 @@
                  <td><a href="__prefix__/tx/{{hash}}">{{hash}}</a></td>
                  <td>{{fee_micro}}</td>
                  <td>{{sum_outputs_short}}</td>
-                 <td>{{no_inputs}}/{{no_outputs}}/{{pID}}</td>
+                 <td>{{no_inputs}}/{{no_outputs}}</td>
                  <td>{{tx_size_short}}</td>
              </tr>
              {{/txs}}
