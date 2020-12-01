@@ -143,6 +143,10 @@ RUN chmod +x /entrypoint.sh
 WORKDIR /data
 VOLUME ["/monero", "/data"]
 
+EXPOSE 8081
+EXPOSE 8082
+EXPOSE 8083
+
 ENV USER_ID 1000
 ENV PORT 8081
 ENV LMDB_PATH /monero
